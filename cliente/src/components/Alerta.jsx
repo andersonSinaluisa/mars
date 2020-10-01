@@ -13,10 +13,8 @@ const Alerta = () => {
         type: alert.category === "Error" ? "danger" : "success",
         insert: "top",
         container: "top-right",
-        animationIn: ["animate__animated", "animate__fadeIn"],
-        animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
-          duration: 3000,
+          duration: 1500,
           onScreen: true,
         },
       });

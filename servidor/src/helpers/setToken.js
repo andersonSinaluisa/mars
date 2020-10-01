@@ -1,8 +1,8 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-module.exports = (res) => {
+module.exports = (res, id) => {
   let payload = {
-    id: "hola mundo",
+    user: id,
   };
   jwt.sign(
     payload,

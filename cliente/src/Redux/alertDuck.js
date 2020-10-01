@@ -23,5 +23,5 @@ export const showAlertAction = (data) => (dispatch) => {
   });
   setTimeout(() => {
     dispatch({ type: HIDE_ALERT });
-  }, 3000);
+  }, 125);
 };

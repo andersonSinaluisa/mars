@@ -1,17 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login.css";
 import { useSelector, useDispatch } from "react-redux";
-import { iniciarSesionAction } from "../Redux/authDuck";
+import { iniciarSesionAction, getUserAuthencticate } from "../Redux/authDuck";
 import { showAlertAction } from "../Redux/alertDuck";
 import Alerta from "./Alerta";
-const Login = () => {
+const Login = (props) => {
   //dispatch
   const dispatch = useDispatch();
   const user = useSelector((store) => store.auth.user);
+  const authenticate = useSelector((store) => store.auth.authenticate);
+  const message = useSelector((store) => store.auth.message);
   const [data, setData] = useState({
     username: "",
     password: "",
   });
+  useEffect(() => {
+    if (user && authenticate) props.history.push("/home");
+    if (message) {
+      dispatch(showAlertAction(message));
+    }
+  }, [authenticate, message, props.history]);
   const { username, password } = data;
 
   const saveData = (e) => {
@@ -33,43 +41,53 @@ const Login = () => {
     }
     if (!password.trim()) {
       sendAlert({
-        message: "The password must be at least 6 characters",
+        message: "Password is required ",
         category: "Error",
       });
       return;
     }
     dispatch(iniciarSesionAction(data));
-    console.log("Enviando");
   };
 
   return (
-    <form
-      onSubmit={(e) => {
-        sendData(e);
-      }}
-      className="login"
-    >
-      <Alerta />
-      <input
-        type="text"
-        placeholder="username"
-        name="username"
-        value={username}
-        onChange={(e) => {
-          saveData(e);
+    <div className="container__login">
+      <form
+        onSubmit={(e) => {
+          sendData(e);
         }}
-      />
-      <input
-        type="password"
-        placeholder="password"
-        name="password"
-        value={password}
-        onChange={(e) => {
-          saveData(e);
-        }}
-      />
-      <button type="submit">Login</button>
-    </form>
+        className="login"
+      >
+        <Alerta />
+        <h2 className="login__title">SpaceMars.JAR</h2>
+        <input
+          type="text"
+          className="login__input"
+          placeholder="username"
+          name="username"
+          value={username}
+          onChange={(e) => {
+            saveData(e);
+          }}
+        />
+        <input
+          className="login__input"
+          type="password"
+          placeholder="password"
+          name="password"
+          value={password}
+          onChange={(e) => {
+            saveData(e);
+          }}
+        />
+        <button type="submit" className="login__button">
+          Login
+        </button>
+        <p className="login__options">Or Forgot Password</p>
+        <p className="login__options">
+          Dont have an account ? <span className="login__span">Signup</span>
+        </p>
+      </form>
+    </div>
   );
 };
 

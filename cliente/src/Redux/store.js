@@ -1,7 +1,7 @@
 import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
-import authReducer from "./authDuck";
+import authReducer, { getUserAuthencticate } from "./authDuck";
 import alertReducer from "./alertDuck";
 const rootReducer = combineReducers({
   auth: authReducer,
