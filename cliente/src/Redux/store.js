@@ -2,9 +2,10 @@ import { createStore, combineReducers, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 
 import authReducer from "./authDuck";
-
+import alertReducer from "./alertDuck";
 const rootReducer = combineReducers({
   auth: authReducer,
+  alert: alertReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -1,3 +1,4 @@
+import clienteAxios from "../Redux/authDuck";
 //State inicial
 const stateInicial = {
   user: null,
@@ -22,10 +23,12 @@ export default function reducer(state = stateInicial, action) {
 
 //Actions
 
-export const iniciarSesionAction = () => async (dispatch, getState) => {
+export const iniciarSesionAction = (data) => async (dispatch, getState) => {
   try {
+    const respuesta = await clienteAxios.post("/api/auth/login", data);
+    console.log(respuesta.data);
     console.log("HOla");
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
   }
 };
